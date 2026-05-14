@@ -12,8 +12,8 @@ export class CatalogPage {
     }
 
     async selectProduct() {
-        await this.coffeeMachineAddToBasketButton.click({delay:500});
-        await this.tabletAddToBasketButton.click({delay: 500});
+        await this.coffeeMachineAddToBasketButton.click({delay:100});
+        await this.tabletAddToBasketButton.click({delay: 100});
         await this.page.waitForLoadState('networkidle');
         await this.basketCount.waitFor();
         const itemsInfo = await this.getProductInfo();
