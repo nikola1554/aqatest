@@ -1,5 +1,3 @@
-import {expect} from "@playwright/test";
-
 export class CatalogPage {
     constructor(page){
         this.page = page;
@@ -11,15 +9,6 @@ export class CatalogPage {
         this.coffeeMachineName = page.locator('[id="product-name-6"]');
         this.tabletPrice = page.locator('[id="product-price-5"]');
         this.coffeeMachinePrice = page.locator('[id="product-price-6"]');
-
-        this.tabletNameValue = '';
-        this.coffeeMachineNameValue = '';
-        this.tabletPriceValue = '';
-        this.coffeeMachinePriceValue = '';
-    }
-
-    async checkTitle() {
-        await this.catalogTitle.waitFor();
     }
 
     async selectProduct() {
@@ -27,18 +16,25 @@ export class CatalogPage {
         await this.tabletAddToBasketButton.click({delay: 500});
         await this.page.waitForLoadState('networkidle');
         await this.basketCount.waitFor();
-        await expect(this.basketCount).toContainText('2', {timeout: 3000});
-        await this.getProductInfo();
-        await this.basketCount.click();
-        // await this.page.pause();
+        const itemsInfo = await this.getProductInfo();
+        return itemsInfo;
+    }
 
+    async goToBasket() {
+        await this.basketCount.click();
     }
 
     async getProductInfo(){
-        this.tabletNameValue = await this.tabletName.innerText();
-        this.coffeeMachineNameValue = await this.coffeeMachineName.innerText();
-        this.tabletPriceValue = await this.tabletPrice.innerText();
-        this.coffeeMachinePriceValue = await this.coffeeMachinePrice.innerText();
-    }
+        return {
+            firstProduct: {
+                name: await this.tabletName.innerText(),
+                price: await this.tabletPrice.innerText(),
+            },
 
+            secondProduct: {
+                name: await this.coffeeMachineName.innerText(),
+                price: await this.coffeeMachinePrice.innerText(),
+            }
+        }
+    }
 }

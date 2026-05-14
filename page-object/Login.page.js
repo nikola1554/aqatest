@@ -7,8 +7,8 @@ export class LoginPage {
         this.registerBtn = page.locator('[id="login-register-button"]');
     }
 
-    async navigate(){
-        await this.page.goto('https://aqa-app.vercel.app/login');
+    async openLoginPage(){
+        await this.page.goto('/login');
     }
 
     async login(email, password){
