@@ -1,10 +1,7 @@
 import {expect, test} from '@playwright/test';
 
-import {newUser1} from "../data/testData";
 import {cardData} from "../data/testData";
 
-import {RegisterPage} from '../page-object/Register.page';
-import {LoginPage} from '../page-object/Login.page';
 import {CatalogPage} from '../page-object/Catalog.page';
 import {BasketPage} from '../page-object/Basket.page';
 import {CheckoutPage} from '../page-object/Checkout.page';
@@ -12,15 +9,16 @@ import {MyAccountPage} from '../page-object/MyAccount.page';
 
 test.setTimeout(50 * 1000);
 
-test.describe('E2E: oreder flow', () => {
+test.describe('E2E: order flow', () => {
     test.beforeAll(async () => {
         console.log('beforeAll: prepare test data');
         console.log('beforeAll: generate users');
         console.log('beforeAll: ready');
     });
 
-    test.beforeEach(async () => {
+    test.beforeEach(async ({page}) => {
         console.log('beforeEach: preconditions');
+        await page.goto('/');
     });
 
     test.afterEach(async ({page}, testInfo) => {
@@ -39,27 +37,12 @@ test.describe('E2E: oreder flow', () => {
     })
 
     test('Create user, login, order 2 items, payment', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-        const registerPage = new RegisterPage(page);
         const catalogPage = new CatalogPage(page);
         const checkoutPage = new CheckoutPage(page);
         const myAccountPage = new MyAccountPage(page);
         const basketPage = new BasketPage(page);
 
         let items;
-
-        await test.step('Open login page', async () => {
-            await loginPage.openLoginPage();
-            await loginPage.clickRegisterButton();
-        })
-
-        await test.step('Register new user', async () => {
-            await registerPage.fillRegistrationForm(newUser1);
-        })
-
-        await test.step('Login with created user', async () => {
-            await loginPage.login(newUser1.email, newUser1.password);
-        })
 
         await test.step('Select two items', async () => {
             items = await catalogPage.selectProduct();
