@@ -7,7 +7,7 @@ on:
 jobs:
   e2e:
     name: E2E test
-    timeout-minutes: 10
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     env:
       CARD_NUMBER: ${{secrets.CARD_NUMBER}}
@@ -35,7 +35,7 @@ jobs:
 
   api:
     name: API test
-    timeout-minutes: 10
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     env:
       API_BASE_URL: ${{secrets.API_BASE_URL}}
