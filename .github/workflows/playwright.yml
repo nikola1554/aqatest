@@ -20,8 +20,19 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+
+      - name: Show Playwright version
+        run: npx playwright --version
+
+      - name: Install dependencies only
+        run: npx playwright install-deps
+
+      - name: Install Chromium only
+        run: npx playwright install chromium
+
+      - name: List installed browsers
+        run: ls -la ~/.cache/ms-playwright
+
       - name: Run E2E
         run: npm run ui-e2e
       - name: Run Playwright tests
