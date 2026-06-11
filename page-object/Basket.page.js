@@ -1,6 +1,7 @@
-export class BasketPage{
+const {AbstractPage} = require('./Abstract.page');
+export class BasketPage extends AbstractPage {
     constructor(page, tabletNameValue, coffeeMachineNameValue,tabletPriceValue,coffeeMachinePriceValue) {
-        this.page = page;
+        super(page);
         this.firstProdoctItemName = page.locator('[id="cart-item-name-6"]');
         this.secondProdoctItemName = page.locator('[id="cart-item-name-5"]');
         this.firstProdoctItemPrice = page.locator('[id="cart-item-price-6"]');

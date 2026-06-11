@@ -1,6 +1,7 @@
-export class CatalogPage {
+const {AbstractPage} = require('./Abstract.page');
+export class CatalogPage extends AbstractPage {
     constructor(page){
-        this.page = page;
+        super(page);
         this.catalogTitle = page.locator('[id="catalog-title"]');
         this.coffeeMachineAddToBasketButton = page.locator('[id="product-add-6"]');
         this.tabletAddToBasketButton = page.locator('[id="product-add-5"]');

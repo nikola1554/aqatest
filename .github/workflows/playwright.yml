@@ -7,7 +7,7 @@ on:
 jobs:
   e2e:
     name: E2E test
-    timeout-minutes: 30
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     env:
       CARD_NUMBER: ${{secrets.CARD_NUMBER}}
@@ -20,19 +20,8 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-
-      - name: Show Playwright version
-        run: npx playwright --version
-
-      - name: Install dependencies only
-        run: npx playwright install-deps
-
-      - name: Install Chromium only
-        run: npx playwright install chromium
-
-      - name: List installed browsers
-        run: ls -la ~/.cache/ms-playwright
-
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
       - name: Run E2E
         run: npm run ui-e2e
       - name: Run Playwright tests
@@ -46,7 +35,7 @@ jobs:
 
   api:
     name: API test
-    timeout-minutes: 30
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     env:
       API_BASE_URL: ${{secrets.API_BASE_URL}}

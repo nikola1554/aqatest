@@ -1,6 +1,7 @@
-export class RegisterPage {
+const {AbstractPage} = require('./Abstract.page');
+export class RegisterPage extends AbstractPage {
     constructor(page) {
-        this.page = page;
+        super(page);
         this.firstNameField = page.locator('[id="register-first-name"]');
         this.lastNameField = page.locator('[id="register-last-name"]');
         this.emailAddressField = page.locator('[id="register-email"]');

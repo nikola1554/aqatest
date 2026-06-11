@@ -1,6 +1,7 @@
-export class MyAccountPage{
+const {AbstractPage} = require('./Abstract.page');
+export class MyAccountPage extends AbstractPage {
     constructor(page){
-        this.page = page;
+        super(page);
         this.totalAmountValue = page.locator('#account-order-0 p', {hasText: 'Total Amount:'});
         this.items = page.locator('#account-order-0 ul > li');
         this.logoutButton = page.locator('[id="account-logout-button"]');
